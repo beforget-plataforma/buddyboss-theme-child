@@ -152,7 +152,7 @@ function bfgSendNotificationPendingPost($post) {
 	    ),
 	    'body' =>  $payload
 	  );
-	  wp_remote_post( 'https://hooks.slack.com/services/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', $args );
+	  wp_remote_post( "https://hooks.slack.com/services/T41M9ERPD/B01A6QCEJSJ/".get_option( 'webhook_slack_option' )."", $args );
 }
 
 add_filter( 'bp_xprofile_is_richtext_enabled_for_field', 'my_disable_rt_function', 10, 2 );
