@@ -1158,7 +1158,8 @@ h1.tribe-events-page-title, h2.tribe-events-page-title {
 }
 
 .bfg-sticky-section .uagb-columns__columns-1 {
-    width: 609px;
+    max-width: 600px;
+    width: 100%;
     margin: 0 auto;
 }
 .post-70 .entry-header {
@@ -1272,4 +1273,19 @@ a#connect-to-slack:hover {
     border-radius: 50px;
     font-size: 13px;
     margin-right: 5px;
+}
+
+/* Newslatter */
+.bfg-newslater-container{
+	list-style: none;
+
+}
+.bfg-newslater-container li a {
+	display: block;
+	padding: 20px;
+	border: 1px solid #5057c924;
+	margin: 17px 0
+}
+.bfg-newslater-container li a:hover {
+	background: #5057c90d;
 }

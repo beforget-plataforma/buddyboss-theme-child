@@ -13,7 +13,6 @@
  */
 
 get_header('content');
-
 ?>
 <div class="content-area">
   <div class="bfg-wrapper-hero-sesiones">
@@ -37,22 +36,29 @@ get_header('content');
 		        $mailster_data = get_post_meta($post->ID, '_mailster_preheader');
 		        $fromName = get_post_meta($post->ID, '_mailster_$fromName');
 				?>
-						<?
+    <?
 							$findme   = '[No miembros]';
 							$pos = strpos($post->post_title, $findme);
 							if($pos !== 0) {
 								$mailster_data_ = rawurldecode($mailster_data[0]);
+									
+								$strContent = substr($post->post_excerpt, 13, 230).'...';
+
 								?>
-									<li>
-										<a href="<? echo the_permalink() ?>">
-											<h4> <? echo $post->post_title; ?></h4>
-											<p><? echo $mailster_data_; ?></p>
-										</a>
-									</li>
-								<?
+    <li>
+      <a href="<? echo the_permalink() ?>">
+        <h4>
+          <? echo $post->post_title; ?>
+        </h4>
+        <p>
+          <? echo $strContent; ?>
+        </p>
+      </a>
+    </li>
+    <?
 							}
 						?>
-				<?
+    <?
 		    }
 		    echo '</ul>';
 		} else {
@@ -62,7 +68,7 @@ get_header('content');
 		wp_reset_postdata();
     ?>
     <div class="bfg-wrapper-filter">
-      
+
   </main><!-- #main -->
 
 </div><!-- #primary -->

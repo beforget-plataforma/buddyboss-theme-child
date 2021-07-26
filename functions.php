@@ -47,10 +47,10 @@ function buddyboss_theme_child_scripts_styles()
    **/
 
   // Styles
-  wp_enqueue_style( 'buddyboss-child-css', get_stylesheet_directory_uri().'/assets/css/custom.css', '', '1.0.0' );
+  wp_enqueue_style( 'buddyboss-child-css', get_stylesheet_directory_uri().'/assets/css/custom.css', array(), true );
 
   // Javascript
-  wp_enqueue_script( 'buddyboss-child-js', get_stylesheet_directory_uri().'/assets/js/custom.js', '', '1.0.0' );
+  wp_enqueue_script( 'buddyboss-child-js', get_stylesheet_directory_uri().'/assets/js/custom.js', array(), true );
 }
 add_action( 'wp_enqueue_scripts', 'buddyboss_theme_child_scripts_styles', 9999 );
 
@@ -58,6 +58,29 @@ add_action( 'wp_enqueue_scripts', 'buddyboss_theme_child_scripts_styles', 9999 )
 /****************************** CUSTOM FUNCTIONS ******************************/
 
 // Add your own custom functions here
+
+/**
+ * 
+ */
+
+function bfgCheck3w() {
+  $CURRENT_URL = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+  if(strpos($CURRENT_URL, '.local') === false ) {
+    if (strpos($CURRENT_URL, 'www') === false) {
+        wp_redirect(home_url($_SERVER['REQUEST_URI']));
+        exit();
+    }
+  }
+}
+add_action( 'init', 'bfgCheck3w');
+
+
+/* Disable MemberPress auto-login */
+function mepr_disable_auto_login($auto_login, $membership_id, $mepr_user) {
+  return false;
+}
+add_filter('mepr-auto-login', 'mepr_disable_auto_login', 3, 3);
 
 /* for redirecting to the profile page after login */
 function custom_login_redirect_to($user_login, $user) {
@@ -68,10 +91,10 @@ function custom_login_redirect_to($user_login, $user) {
 	}
 	
 }
+add_action('wp_login', 'custom_login_redirect_to', 10, 2);
+
 
 //* Redirect WordPress to Homepage Upon Logout
-//add_action('wp_logout', create_function('','wp_redirect(home_url("wp-login.php"));exit();'));
-//buddyboss support change the deprecated function -->> create_function
 function wp_redirect_upon_logout(){
     wp_redirect(home_url("wp-login.php"));
     exit();
@@ -85,53 +108,15 @@ define ( 'BP_AVATAR_DEFAULT_THUMB', 'https://beforget.community/wp-content/uploa
 add_filter( 'bp_core_fetch_avatar_no_grav', '__return_true' );
 
 
-function bfg_breadcrumb($name, $post) {
-  $currentURL = get_site_url( );
-  $title = $post->post_title;
-  $permalink = get_the_permalink( $post->ID );
-  ?>
-  <div class="bfg-breadcruƒmb main-navs bp-navs single-screen-navs horizontal groups-nav">
-    <ul>
-      <li>
-        <a href="<? echo $currentURL.'/'.$name.'/'; ?>"><? echo $name; ?></a>
-      </li>
-      <li>
-        <b><? echo $title; ?></b>
-      </li>
-    </ul>
-  </div>
-  <?php
+/* Estilos para el backend de wordpress */
+
+function admin_style() {
+  wp_enqueue_style('admin-styles', get_stylesheet_directory_uri().'/assets/css/admin.css');
 }
+add_action('admin_enqueue_scripts', 'admin_style');
 
 
-// add this to functions.php
-//register acf fields to Wordpress API
-//https://support.advancedcustomfields.com/forums/topic/json-rest-api-and-acf/
-
-function create_ACF_meta_in_REST() {
-  $postypes_to_exclude = ['proyectos'];
-  $extra_postypes_to_include = ["sesiones"];
-  $post_types = array_diff(get_post_types(["_builtin" => false], 'names'),$postypes_to_exclude);
-
-  array_push($post_types, $extra_postypes_to_include);
-
-  foreach ($post_types as $post_type) {
-      register_rest_field( $post_type, 'ACF', [
-          'get_callback'    => 'expose_ACF_fields',
-          'schema'          => null,
-     ]
-   );
-  }
-
-}
-
-function expose_ACF_fields( $object ) {
-  $ID = $object['id'];
-  return get_fields($ID);
-}
-
-add_action( 'rest_api_init', 'create_ACF_meta_in_REST' );
-
+//Notificacion cuando se sube un proyecto
 add_action( 'transition_post_status', 'bfg_new_proyecto_notification', 10, 3 );
 
 function bfg_new_proyecto_notification( $new_status, $old_status, $post  ) {
@@ -140,50 +125,51 @@ function bfg_new_proyecto_notification( $new_status, $old_status, $post  ) {
   }
 }
 function bfgSendNotificationPendingPost($post) {
-    
-    $config = array( 
-        "text" => "Hola! Hay un nuevo proyecto que espera a ser aprobado ".get_permalink( $post->ID ).".", 
-    ); 
-    $payload = json_encode($config);
+	$author_id = get_post_field ('post_author', $post->ID);
+	$display_name = get_the_author_meta( 'first_name' , $author_id); 
+ 	
+	$bfgCookieName = 'BfgNotication'.$post->ID;
+	$value = $post->ID;
 
-	  $args = array(
+  $config = array( 
+      "text" => "[Nuevo Proyecto en la comunidad] ".$display_name." ha subido un nuevo proyecto, esta es la url: ".get_permalink( $post->ID )."", 
+  ); 
+  $payload = json_encode($config);
+
+	$args = array(
 	    'headers' => array(
 	        'Content-Type' => 'Content-Type'
 	    ),
 	    'body' =>  $payload
 	  );
-	  wp_remote_post( "https://hooks.slack.com/services/T41M9ERPD/B01A6QCEJSJ/".get_option( 'webhook_slack_option' )."", $args );
-}
-
-add_filter( 'bp_xprofile_is_richtext_enabled_for_field', 'my_disable_rt_function', 10, 2 );
-function my_disable_rt_function( $enabled, $field_id ) {
-  // 14 is the id of the field I want to be plain text.
-  if ( 341 == $field_id ) {
-    $enabled = false;
-  }
-  return $enabled;
-}
-
-
-function bfgCheckWww() {
-  $CURRENT_URL = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-  if (strpos($CURRENT_URL, 'www') === false) {
-    wp_redirect(home_url($_SERVER['REQUEST_URI']));
-    exit();
-  }
-}
-// add_action( 'init', 'bfgCheckWww');
-
-//redirec to dashboard if login
-function bfg_dash_redirect() {
-    if(is_user_logged_in() && is_front_page()){
-      bp_core_redirect( home_url("dashboard") );
-      exit();
+	  
+  	if (!isset($_COOKIE[$bfgCookieName])) {
+      wp_remote_post( get_option( 'webhook_url_slack_option' ), $args );
+      setcookie($bfgCookieName, $value);
     }
-  }
-  add_action('wp', 'bfg_dash_redirect');
+}
 
-  // define the login_init callback 
+
+/* ---------------------------------------------------------------------------
+ * Show the Cookie Banner
+ * --------------------------------------------------------------------------- */
+
+function cmplz_show_banner_on_click() {
+  ?>
+  <script>
+        jQuery(document).ready(function ($) {
+            $(document).on('click', '.cmplz-show-banner', function(){
+                $('.cc-revoke').click();
+                $('.cc-revoke').fadeOut();
+            });
+        });
+  </script>
+  <?php
+}
+add_action( 'wp_footer', 'cmplz_show_banner_on_click' );
+
+
+// define the login_init callback 
 function action_login_init() { 
 	$bfg_request = wp_get_referer();
 	setcookie('bfg_history_page', $bfg_request, time()+3600);
@@ -191,6 +177,43 @@ function action_login_init() {
          
 // add the action 
 add_action( 'login_init', 'action_login_init', 10, 1 ); 
+
+
+//redirec to dashboard if login
+function bfg_dash_redirect() {
+	if(is_user_logged_in() && is_front_page()){
+	  bp_core_redirect( home_url("dashboard") );
+	  exit();
+	}
+}
+add_action('wp', 'bfg_dash_redirect');
+
+/* Add Matomo Tag Manager */
+add_action('wp_head', 'matomo_tag_manager');
+function matomo_tag_manager(){
+  $CURRENT_URL = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+  if(strpos($CURRENT_URL, '.local') === false ) {
+    ?>
+     <!-- Matomo Tag Manager -->
+      <script type="text/javascript">
+      var _mtm = window._mtm = window._mtm || [];
+      _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.src='https://cdn.matomo.cloud/beforget.matomo.cloud/container_s4Ee9pDo.js'; s.parentNode.insertBefore(g,s);
+      </script>
+      <!-- End Matomo Tag Manager -->
+      <?php
+  }
+
+};
+
+/**
+ * Ulr especifica desde un mailing
+ */
+if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/wp-login.php%20,'){
+	header("Location: https://www.beforget.community/wp-login.php");  
+	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+};
 
 
 //Redirección para el BUG de meberpress a recordar la url del cual viene el usuario
