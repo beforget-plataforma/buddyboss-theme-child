@@ -13,6 +13,7 @@
  */
 
 get_header('content');
+
 ?>
 
 <div class="content-area">

@@ -48,16 +48,12 @@ $profileUserID = bp_displayed_user_id();?>
 <?php if ( ( $footer_copyright ) && (!is_singular('lesson')) && (!is_singular('llms_quiz')) &&  (!is_singular('llms_assignment')) &&  (!is_singular('llms_my_certificate')) ) { ?>
 	<? 
 		global $wp;
+
 		if(current_user_can('mepr-active','rules:273')){
-			if((home_url($wp->request) === bp_core_get_user_domain($profileUserID). '/proyectos') || is_page('proyectos')) {
+			if((home_url($wp->request) === bp_core_get_user_domain($profileUserID). 'proyectos') || is_page('proyectos')) {
 				include_once(dirname(__FILE__) . '/../bfg-project-banner.php'); 
 			}
 		}
-		// if(current_user_can('mepr-active','rules:273')) {
-			
-		// }
-		// echo home_url($wp->request);
-		// echo bp_core_get_user_domain($profileUserID);
 	?>
 	<footer class="footer-bottom bb-footer style-<?php echo buddyboss_theme_get_option( 'footer_style' ); ?>">
 		<div class="container flex">

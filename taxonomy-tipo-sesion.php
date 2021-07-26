@@ -13,25 +13,9 @@ get_header();
 <div id="primary" class="content-area">
 	<div class="bfg-wrapper-hero has-text-align-center">
 		<?
-			$bfgSesion = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-			$currentSesion = basename($bfgSesion);
-			if(basename($bfgSesion) === 'beforget-club') {
-				$bfgSlug = 'BeForGet Club';
-			}
-			if(basename($bfgSesion) === 'beforget-talks') {
-				$bfgSlug = 'BeForGet Talks';
-			}
-			if(basename($bfgSesion) === 'beforget-talent') {
-				$bfgSlug = 'BeForGet Talent';
-			}
-			if(basename($bfgSesion) === 'beforget-express') {
-				$bfgSlug = 'BeForGet Express';
-			}
-			if(basename($bfgSesion) === 'beforget-basics') {
-				$bfgSlug = 'BeForGet Basics';
-			}
+			$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 		?>
-		<h2><? echo $bfgSlug; ?></h2>
+		<h2><? echo $term->name; ?></h2>
 	</div>
 	<main id="main" class="site-main">
 		<div class="wrapper-post-sesiones-profile flex bfg-flex-grap">
@@ -44,53 +28,65 @@ get_header();
 							array(
 								'taxonomy' => 'tipo-sesion',
 								'field'    => 'slug',
-								'terms'    => basename($bfgSesion),
+								'terms'    => $term->slug,
 							)
 						),
 					);
 						$query = new WP_Query( $args );
 						while($query->have_posts()): $query->the_post();
+						$terms = get_the_terms( $post->ID, 'tipo-sesion' );
 						$users = get_field("ponente");
-						$userName = xprofile_get_field_data('1', $users[0]->ID);
-						$userLastName = xprofile_get_field_data('2', $users[0]->ID);
+						$ponente = get_post_meta( get_the_ID(), 'ponente', true);
+						$participantes = get_post_meta( get_the_ID(), 'ponente', true);
 				?>
 				<div class="bfg-item-sesiones">
 					<a class="no-color" href="<?php the_permalink(); ?>">
 						<div class="bfg-header-cover-sesiones item-profile flex"
 							style="background-color:<?php the_field('brand_color'); ?>">
 							<span class="bfg-icon-smile inprofile">
-								<img src="<? echo wp_get_attachment_url(167); ?>" alt="">
+								<img src="<? echo wp_get_attachment_url(171); ?>" alt="">
 							</span>
 							<hgroup>
 								<div class="bfg-container-title item-profile ">
 									<?php
-											$title = get_the_title();
-											$short_title = wp_trim_words( $title, 12, '...' );
-										?>
-										<h2 class="title-bit"><? echo get_the_title(); ?></h2>
-									</div>
-										<?php
-											$ponenteName = $users[0]->display_name;
-											$ponenteAvatar = get_avatar($users[0]->ID);
-										?>
-										<div class="bfg-profile-author bfg-icon-small">
-										<?
-											if($users[0]->ID != null){
-												echo $ponenteAvatar;
-										?> 
-										<span><? echo $userName .' '. $userLastName; ?></span>
-										<?php
-									} else {
-										?>
-										<img src="<? echo wp_get_attachment_url(805); ?>" alt="">
-										<span><? echo 'BeForGet';?></span>
-										<?php
-									}
+										$title = get_the_title();
+										$short_title = wp_trim_words( $title, 12, '...' );
 									?>
+									<h1>
+										<? echo $title; ?>
+									</h1>
+								</div>
+								<?
+									$args = array( 
+										'item_id' => get_the_author_meta('ID')
+									); 
+								?>
+								<?php
+									$users = get_field("ponente");
+									$ponenteName = $users[0]->display_name;
+									$userName = xprofile_get_field_data('1', $participantes[0]);
+									$userLastName = xprofile_get_field_data('2', $participantes[0]);
+									$ponenteAvatar = get_avatar($participantes[0]);
+
+									?>
+								<div class="bfg-profile-author bfg-icon-small">
+								<?
+								if($participantes[0] != null){
+									echo $ponenteAvatar;
+								?>
+								<span><? echo $userName . ' ' . $userLastName; ?></span>
+								<?php
+								}else{
+								?>
+									<img class="bfg-avatar-reset" src="<? echo wp_get_attachment_url(805); ?>" alt="">
+									<span><? echo 'BeForGet';?></span>
+								<?php
+								}
+								?>
 								</div>
 							</hgroup>
 						</div>
-						<span class="line-divisor <? echo basename($bfgSesion); ?>"></span>
+						<span class="line-divisor <? echo $term->name ; ?>"></span>
 						<div class="bfg-content-inprofile">
 							<p>
 								<?php
@@ -99,18 +95,35 @@ get_header();
 							</p>
 						</div>
 						<div class="line footer-date"></div>
-						<div class="flex bfg-footer-item">
-							<div class="bfg-icon-date inprofile">
-								<img src="<? echo wp_get_attachment_url(166); ?>" alt="">
+						<div class="flex bfg-date-sesion">
+							<div class="bfg-date-wrapper">
+								<div class="bfg-icon-date inprofile">
+									<img src="<? echo wp_get_attachment_url(247); ?>" alt="">
+								</div>
+								<div class="bfg-block time-footer">
+										<?php
+											$unixtimestamp = strtotime( get_field('hora_de_la_sesion') );
+											echo date_i18n( "d / m / Y", $unixtimestamp );
+										?>
+								</div>
 							</div>
-							<div class="bfg-block time-footer">
-								<p>
-									<?php
-										$unixtimestamp = strtotime( get_field('hora_de_la_sesion') );
-										echo date_i18n( "l d F, H:i", $unixtimestamp );
-									?>
-									hrs
-								</p>
+							<div class="bfg-miembros-proyecto flex bfg-flex-grap">
+								<?
+									$index = 0;
+									if($participantes){
+
+										foreach($participantes as $userID){
+											$userName = xprofile_get_field_data('1', $userID);
+											$args = array( 
+												'item_id' => $userID
+											);
+											if($index != 0) {
+												echo bp_core_fetch_avatar($args);
+											}
+											$index ++;
+										}
+									}
+								?>
 							</div>
 						</div>
 					</a>

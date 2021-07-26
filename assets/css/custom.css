@@ -374,6 +374,10 @@ a.user-link {
 	display: none;
 }
 
+.mepr_error>div.my-message>p>img {
+    max-width:150px;
+}
+
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
 /* MEMBERS PAGE  */
@@ -416,6 +420,11 @@ a.user-link {
     min-width: 200px;
     background-color: #5057C9;
     border: 1px solid #5057C9;
+}
+
+/* Ocultar icono de reCaptcha v3 */
+.grecaptcha-badge{
+	visibility: collapse !important;  
 }
 
 
@@ -510,6 +519,116 @@ a.user-link {
 .buddypress-wrap table.profile-fields tr.field_disponibilidad td.data p:after {
     content: " horas";
 }
+
+.member-header-actions #connect-to-slack {
+    font-size: 12px !important;
+    min-height: 30px !important;
+    padding: 0 20px !important;
+    line-height: 28px !important;
+}
+
+/* ODS  */
+/********************************************************************************************************************************/
+
+.profile-edit .select2-container .select2-dropdown {
+    max-width: 400px;
+}
+
+.editfield.field_mis-ods p.description {
+    margin-top: 10px !important;
+}
+
+.field_mis-ods ul {
+    margin-left: 0;
+}
+
+.field_mis-ods ul li {
+    list-style-type: none;
+    display: inline;
+}
+
+.field_mis-ods ul li a {
+    font-size: 0;
+    pointer-events: none;
+}
+
+.field_mis-ods a[href*="ods-01"]:after {
+    background: url("../images//ods-01.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-02"]:after {
+    background: url("../images//ods-02.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-03"]:after {
+    background: url("../images//ods-03.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-04"]:after {
+    background: url("../images//ods-04.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-05"]:after {
+    background: url("../images//ods-05.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-06"]:after {
+    background: url("../images//ods-06.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-07"]:after {
+    background: url("../images//ods-07.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-08"]:after {
+    background: url("../images//ods-08.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-09"]:after {
+    background: url("../images//ods-09.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-10"]:after {
+    background: url("../images//ods-10.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-11"]:after {
+    background: url("../images//ods-11.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-12"]:after {
+    background: url("../images//ods-12.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-13"]:after {
+    background: url("../images//ods-13.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-14"]:after {
+    background: url("../images//ods-14.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-15"]:after {
+    background: url("../images//ods-15.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-16"]:after {
+    background: url("../images//ods-16.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods-17"]:after {
+    background: url("../images//ods-17.png") no-repeat 0 0;
+}
+
+.field_mis-ods a[href*="ods"]:after {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin-right: 5px;
+    content: "";
+    background-size: 100%;
+}
+
 
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
@@ -627,6 +746,17 @@ p.advice-form {
     border-bottom: 2px solid #d4d2ff;
     padding-bottom: 30px;
 }
+
+.mepr_tos {
+    line-height: 18px;
+}
+
+.mepr_tos a {
+    pointer-events: none;
+    color: #000000;
+    font-size: 13px;
+}
+
 
 /* Fortaleza contraseña  */
 /********************************************************************************************************************************/
@@ -748,6 +878,115 @@ h1.tribe-events-page-title, h2.tribe-events-page-title {
     color: #5057C9;
 }
 
+/* VISTA LISTA  */
+/********************************************************************************************************************************/
+
+.tribe-events-event-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.tribe-events-category-privado div.tribe-events-event-image:before {
+    content: "Privado";
+    position: absolute;
+    z-index: 9;
+    text-transform: uppercase;
+    background-color: #e60000;
+    padding: 0 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 150px;
+    font-size: 14px;
+    top: 20px;
+    right: -40px;
+    text-align: center;
+    overflow: hidden;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.tribe-events-category-publico div.tribe-events-event-image:before {
+    content: "Público";
+    position: absolute;
+    z-index: 9;
+    text-transform: uppercase;
+    background-color: #5ca900;
+    padding: 0 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 150px;
+    font-size: 14px;
+    top: 20px;
+    right: -40px;
+    text-align: center;
+    overflow: hidden;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* VISTA CALENDARIO */
+/********************************************************************************************************************************/
+
+.events-archive.events-gridview .tribe-events-category-bfg-talks {
+    background-color: #fb856f !important;
+}
+
+.events-archive.events-gridview .tribe-events-category-bfg-talent {
+    background-color: #97ddda !important;
+}
+
+.events-archive.events-gridview .tribe-events-category-bfg-basic {
+    background-color: #fa7121 !important;
+}
+
+.events-archive.events-gridview .tribe-events-category-bfg-mentoring {
+    background-color: #AFEB87 !important;
+}
+
+.events-archive.events-gridview .tribe-events-category-bfg-talks h3 a, .events-archive.events-gridview .tribe-events-category-bfg-talent h3 a, .events-archive.events-gridview .tribe-events-category-bfg-basic h3 a, .events-archive.events-gridview .tribe-events-category-bfg-mentoring  h3 a {
+    color: #000000 !important;
+} 
+
+.events-archive.events-gridview div.tribe-events-category-privado, .events-archive.events-gridview div.tribe-events-category-publico {
+    padding-top: 13px !important;
+}
+
+.events-archive.events-gridview div.tribe-events-category-privado:before {
+    content: 'Privado';
+    color: #ffffff;
+    background-color: #e60000;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    position: absolute;
+    top: -9px;
+    left: 5px;
+    line-height: 10px;
+    border: 2px solid #ffffff;
+}
+
+.events-archive.events-gridview div.tribe-events-category-publico:before {
+    content: 'Público';
+    color: #ffffff;
+    background-color: #5ca900;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    position: absolute;
+    top: -9px;
+    left: 5px;
+    line-height: 10px;
+    border: 2px solid #ffffff;
+}
+
+.single-tribe_events .cat_privado .mepr_error {
+    display: none;
+}
+
 /********************************************************************************************************************************/
 /********************************************************************************************************************************/
 /* CUSTOM POST STYLES  */
@@ -816,7 +1055,7 @@ h1.tribe-events-page-title, h2.tribe-events-page-title {
 /* Ocultamos temporalmente el filtrado de proyectos */
 
 .page-template-page-proyectos .bfg-nav-filter.nav-filter-proyectos {
-    /* display: none; */
+    display: none;
 }
 
 .page-template-page-proyectos .pre-filter p.big {
@@ -893,30 +1132,37 @@ h1.tribe-events-page-title, h2.tribe-events-page-title {
 .bfg-sticky-section {
     position: relative;
     background: #4d57cb;
-    background-image: linear-gradient(to left, #7986e7 99%, #7986e7 1%);
     padding: 70px 0;
 }
 .bfg-sticky-section h3,
 .bfg-sticky-section p{
 	color: white !important;
 }
+.bfg-sticky-section:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -13px;
+    width: 20px;
+    height: 100%;
+    background: #4d57cb;
+}
+.bfg-sticky-section:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -13px;
+    width: 20px;
+    height: 100%;
+    background: #4d57cb;
+}
 
 .bfg-sticky-section .uagb-columns__columns-1 {
-    max-width: 609px;
+    width: 609px;
     margin: 0 auto;
 }
-
-.bfg-sticky-section .bfg-image-center {
-    width: 202px;
-    margin: 15px auto;
-}
-
-.bfg-sticky-section a{
-    background-color: #5058c9;
-    color: white !important;
-}
-.bfg-sticky-section a:hover{
-    background-color: #5058c9a1;
+.post-70 .entry-header {
+    display: none;
 }
 
 .bfg-button-slack{
@@ -925,4 +1171,105 @@ h1.tribe-events-page-title, h2.tribe-events-page-title {
 }
 .bfg-button-slack i{
     margin-right: 6px;
+}
+.bfg-count-resultados{
+width: 52%;
+display: flex;
+justify-content: center;
+min-height: 27px;
+text-align: center;
+}
+.bfg-total-resultados span{
+position: relative;
+display: inline-block;
+width: 100%;
+}
+.bfg-list-item{
+position: relative;
+width: 49%;
+display: flex;
+}
+.bfg-list-item a{
+width: 100%;
+}
+.bfg-list-item a .bfg-header-cover-sesiones{
+width: 100%;
+}
+
+.bfg-list-item{
+    width: 100%;
+}
+.bfg-slick-slider .bfg-list-item{
+    width: 49%;
+}
+
+.bfg-shortcode-container h3{
+    margin-bottom: 15px !important;
+}
+
+/* Botón Slack */
+
+a#connect-to-slack {
+    color: #5057C9;
+}
+
+a#connect-to-slack:hover {
+    color: #3F46AD;
+}
+
+/* Banner Proyectos */
+
+.banner-proyecto {
+    position: fixed;
+    z-index: 99;
+    bottom: 0;
+    width: 98%;
+    margin-left: -10px !important;
+}
+
+.banner-proyecto p {
+    margin-bottom: 0;
+}
+
+.cc-center.cc-revoke {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.page-template-page-proyectos .bfg-wrapper-hero-proyectos .mepr_error {
+    display: none;
+}
+
+.bfg-sticky-section .bfg-image-center {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.bfg-sticky-section .wp-block-button > a {
+    background-color: #ffffff;
+}
+
+@media screen and (min-width: 768px) {
+    .page-template-page-proyectos .bfg-sticky-section {
+        display: none;
+    }
+}
+/* MIS INTERESES (PERFIL) */
+
+.editfield.field_mis-intereses p.description {
+    margin-top: 10px !important;
+}
+
+.profile-fields .field_mis-intereses ul {
+    margin-left: 5px;
+}
+
+.profile-fields .field_mis-intereses ul li {
+    list-style-type: none;
+    display: inline;
+    border: 1px solid #5057c9;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 13px;
+    margin-right: 5px;
 }

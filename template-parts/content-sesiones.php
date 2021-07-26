@@ -36,7 +36,7 @@
 					<div class="bfg-profile-author name-detail flex">
 							<?php
 								$users = get_field("ponente");
-								$ponenteName = $participantes[0]->display_name;
+								// $ponenteName = $participantes[0]->display_name;
 								$ponenteAvatar = get_avatar($participantes[0]);
 								$userName = xprofile_get_field_data('1', $participantes[0]);
 								$userLastName = xprofile_get_field_data('2', $participantes[0]);
@@ -137,7 +137,7 @@
 							<?php endif; ?>
 								<div class="bfg-restricted">
 									<article>
-										<p>Para ver el contenido  <a href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>">accede a tu perfil</a> o <a href="<?  echo site_url('/hazte-miembro/' . get_permalink()); ?>">regístrate en la Comunidad.</a> </p>
+										<p>Para ver el contenido  <a href="<?php echo esc_url( wp_login_url( ) ); ?>">accede a tu perfil</a> o <a href="<?  echo site_url('/hazte-miembro/' . get_permalink()); ?>">regístrate en la Comunidad.</a> </p>
 									<?
 										return;
 									?>

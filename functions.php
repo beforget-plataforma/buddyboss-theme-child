@@ -61,9 +61,13 @@ add_action( 'wp_enqueue_scripts', 'buddyboss_theme_child_scripts_styles', 9999 )
 
 /* for redirecting to the profile page after login */
 function custom_login_redirect_to($user_login, $user) {
-  bp_core_redirect( home_url("dashboard") );
+	if (isset($_COOKIE['bfg_history_page'])) {
+		bp_core_redirect( $_COOKIE['bfg_history_page'] );
+	}else {
+		bp_core_redirect( home_url("dashboard") );
+	}
+	
 }
-add_action('wp_login', 'custom_login_redirect_to', 10, 2);
 
 //* Redirect WordPress to Homepage Upon Logout
 //add_action('wp_logout', create_function('','wp_redirect(home_url("wp-login.php"));exit();'));
@@ -86,7 +90,7 @@ function bfg_breadcrumb($name, $post) {
   $title = $post->post_title;
   $permalink = get_the_permalink( $post->ID );
   ?>
-  <div class="bfg-breadcrumb main-navs bp-navs single-screen-navs horizontal groups-nav">
+  <div class="bfg-breadcruƒmb main-navs bp-navs single-screen-navs horizontal groups-nav">
     <ul>
       <li>
         <a href="<? echo $currentURL.'/'.$name.'/'; ?>"><? echo $name; ?></a>
@@ -163,52 +167,40 @@ function my_disable_rt_function( $enabled, $field_id ) {
 
 function bfgCheckWww() {
   $CURRENT_URL = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-  if (strpos($CURRENT_URL, 'www') !== true) {
-      echo 'true';
-      // var_dump("Location: https://www.".$CURRENT_URL."");
-      header("Location: https://www.".$CURRENT_URL."");
+  if (strpos($CURRENT_URL, 'www') === false) {
+    wp_redirect(home_url($_SERVER['REQUEST_URI']));
+    exit();
   }
 }
 // add_action( 'init', 'bfgCheckWww');
 
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/wp-login.php'){
-	header("Location: https://www.beforget.community/wp-login.php");  
-}
+//redirec to dashboard if login
+function bfg_dash_redirect() {
+    if(is_user_logged_in() && is_front_page()){
+      bp_core_redirect( home_url("dashboard") );
+      exit();
+    }
+  }
+  add_action('wp', 'bfg_dash_redirect');
+
+  // define the login_init callback 
+function action_login_init() { 
+	$bfg_request = wp_get_referer();
+	setcookie('bfg_history_page', $bfg_request, time()+3600);
+}; 
+         
+// add the action 
+add_action( 'login_init', 'action_login_init', 10, 1 ); 
+
+
+//Redirección para el BUG de meberpress a recordar la url del cual viene el usuario
+function bfg_check_login_memberpress_redirect() {
+	if(is_user_logged_in() && $_GET["action"] === 'mepr_unauthorized') {
+	    bp_core_redirect( home_url("dashboard") );
+	    exit();
+	}
 	
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/wp-login.php%20,'){
-	header("Location: https://www.beforget.community/wp-login.php");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/proyectos/'){
-	header("Location: https://www.beforget.community/proyectos/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/sesiones/'){
-	header("Location: https://www.beforget.community/sesiones/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/miembros/'){
-	header("Location: https://www.beforget.community/miembros/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
+}
+add_action('init', 'bfg_check_login_memberpress_redirect');
 
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/wiki/'){
-	header("Location: https://www.beforget.community/wiki/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
-
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/novedades/'){
-	header("Location: https://www.beforget.community/novedades/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
-
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/contacto/'){
-	header("Location: https://www.beforget.community/contacto/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
-
-if($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] == 'beforget.community/hazte-miembro/'){
-	header("Location: https://www.beforget.community/hazte-miembro/");  
-	echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-};
 ?>
