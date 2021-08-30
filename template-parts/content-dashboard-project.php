@@ -12,7 +12,7 @@
     <div class="bfg-header-cover bfg-image-bg overlay" style="background-image:url(<?php echo $imgDestacada; ?>)">
     </div>
     <div class="container-center title-item-dash">
-      <h2 class="title-big"><? the_title() ?></h2>
+      <h2 class="title-big"><?php the_title() ?></h2>
     </div>
   </a>
 </div>

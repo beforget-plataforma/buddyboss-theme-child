@@ -21,10 +21,10 @@ get_header('content');
 		$postEdit = $_GET["edit"];
 		
 	?>
-	<a class="bfg-button-primary wp-block-button__link has-white-color has-text-color has-background" href="<? echo get_the_permalink($postEdit); ?>">
+	<a class="bfg-button-primary wp-block-button__link has-white-color has-text-color has-background" href="<?php echo get_the_permalink($postEdit); ?>">
 			Volver al proyecto
 	</a>
-  <?
+  <?php
   
 	acf_form(array(
 	 'post_id' => $postEdit,

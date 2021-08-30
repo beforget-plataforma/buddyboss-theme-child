@@ -18,7 +18,7 @@ get_header('content');
 
 <div class="content-area">
   <div class="bfg-wrapper-hero-proyectos">
-    <?
+    <?php
       echo the_content();
     ?>
   </div>
@@ -32,17 +32,19 @@ get_header('content');
         ));
       ?>
 		<div class="bfg-nav-filter proyectos-nav-page">
-				<?
+      <?php if ($terms):?>
+				<?php
 					foreach($terms as $term) {
 						?>
-							<div class="bfg-filter-button bfg-content-category category-ods <? echo $term->slug; ?>" style='background-image:url("<?php echo get_stylesheet_directory_uri(); ?>/assets/images/<? echo $term->slug; ?>.png")'>
+							<div class="bfg-filter-button bfg-content-category category-ods <?php echo $term->slug; ?>" style='background-image:url("<?php echo get_stylesheet_directory_uri(); ?>/assets/images/<? echo $term->slug; ?>.png")'>
 								<label data-type="categoria-sesion">
-										<input type="checkbox" value="<? echo $term->slug; ?>"><span><? echo $term->name; ?></span>
+										<input type="checkbox" value="<?php echo $term->slug; ?>"><span><?php echo $term->name; ?></span>
 								</label>
 							</div>
 						<?php
 					}
 				?>
+        <?php endif;?>
 		</div>
 		<div class="bfg-count-resultados ods"></div>
     <div class="wrapper-post-proyectos-page flex bfg-flex-grap">
@@ -53,7 +55,6 @@ get_header('content');
   </div>
   </main><!-- #main -->
 </div><!-- #primary -->
-
 <?php
 do_action('bfg_filter_proyecto_script');
 get_footer();

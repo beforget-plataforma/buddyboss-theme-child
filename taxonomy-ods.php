@@ -12,7 +12,7 @@ get_header();
 
 <div id="primary" class="content-area">
 	<div class="bfg-wrapper-hero has-text-align-center">
-		<?
+		<?php
 			$bfgProyectos = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 			$currentSesion = basename($bfgProyectos);
 			if($currentSesion === 'ods-01') {
@@ -67,7 +67,7 @@ get_header();
 				$bfgSlug = 'Proyectos asociados al Objetivo ODS 17';
 			}
 		?>
-		<h2><? echo $bfgSlug; ?></h2>
+		<h2><?php echo $bfgSlug; ?></h2>
 	</div>
 	<main id="main" class="site-main bfg-grid-content bfg-wrapper-container">
     <?php
@@ -97,7 +97,7 @@ get_header();
           while($query->have_posts()): $query->the_post();
 			    $terms = get_the_terms( get_the_ID(), 'ods' );
       ?>
-      <?
+      <?php
 					$thumbID = get_post_thumbnail_id( get_the_ID() );
 					$imgDestacada = wp_get_attachment_url( $thumbID );
 				?>
@@ -106,22 +106,22 @@ get_header();
 				<a class="no-color" href="<?php the_permalink(); ?>">
 					<div class="bfg-header-cover-sesiones bfg-has-avatar item-profile flex" style="background-image:url(<?php echo $imgDestacada; ?>)">
           </div>
-          <div class="bfg-avatar-proyecto" style="background-image: url(<? echo the_field('logo_proyecto'); ?>)"></div>
+          <div class="bfg-avatar-proyecto" style="background-image: url(<?php echo the_field('logo_proyecto'); ?>)"></div>
 					<hgroup class="bfg-content-inprofile resumen-proyecto">
 						<div class=" ">
 							<?php
 								$title = get_the_title();
 								$short_title = wp_trim_words( $title, 12, '...' );
 							?>
-							<h2 class="title-bit"><? echo $short_title; ?></h2>
+							<h2 class="title-bit"><?php echo $short_title; ?></h2>
 						</div>
 						<div class="group-description">
 						
-							<? echo the_excerpt(); ?>
+							<?php echo the_excerpt(); ?>
 						</div>
 					</hgroup>
 					<div class="bfg-miembros-proyecto flex bfg-flex-grap">
-					<?
+					<?php
 							$miembros = get_post_meta( get_the_ID(), 'miembros', true );
 							$user_id = get_the_author_meta( 'ID' );
 							if($miembros) {
@@ -148,7 +148,7 @@ get_header();
           </div>
 				</a>
 			</div>
-      <?
+      <?php
         endwhile; wp_reset_postdata();
       ?>
     </div>
