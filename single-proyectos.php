@@ -25,9 +25,5 @@ get_header();
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-	<?
-		// get_sidebar( 'page' );
-
-	?>
 <?php
 get_footer();

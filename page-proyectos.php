@@ -33,18 +33,8 @@ get_header('content');
       ?>
 		<div class="bfg-nav-filter proyectos-nav-page">
       <?php if ($terms):?>
-				<?php
-					foreach($terms as $term) {
-						?>
-							<div class="bfg-filter-button bfg-content-category category-ods <?php echo $term->slug; ?>" style='background-image:url("<?php echo get_stylesheet_directory_uri(); ?>/assets/images/<? echo $term->slug; ?>.png")'>
-								<label data-type="categoria-sesion">
-										<input type="checkbox" value="<?php echo $term->slug; ?>"><span><?php echo $term->name; ?></span>
-								</label>
-							</div>
-						<?php
-					}
-				?>
-        <?php endif;?>
+				
+      <?php endif;?>
 		</div>
 		<div class="bfg-count-resultados ods"></div>
     <div class="wrapper-post-proyectos-page flex bfg-flex-grap">

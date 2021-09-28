@@ -12,10 +12,10 @@ get_header();
 
 <div id="primary" class="content-area">
 	<div class="bfg-wrapper-hero has-text-align-center">
-		<?
+		<?php
 			$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 		?>
-		<h2><? echo $term->name; ?></h2>
+		<h2><?php echo $term->name; ?></h2>
 	</div>
 	<main id="main" class="site-main">
 		<div class="wrapper-post-sesiones-profile flex bfg-flex-grap">
@@ -42,7 +42,7 @@ get_header();
 				<div class="bfg-item-sesiones">
 					<a class="no-color" href="<?php the_permalink(); ?>">
 						<div class="bfg-header-cover-sesiones item-profile flex"
-							style="background-color:<?php the_field('brand_color'); ?>">
+							style="background-color:#1263f0;">
 							<span class="bfg-icon-smile inprofile">
 								<img src="<? echo wp_get_attachment_url(171); ?>" alt="">
 							</span>
@@ -53,10 +53,10 @@ get_header();
 										$short_title = wp_trim_words( $title, 12, '...' );
 									?>
 									<h1>
-										<? echo $title; ?>
+										<?php echo $title; ?>
 									</h1>
 								</div>
-								<?
+								<?php
 									$args = array( 
 										'item_id' => get_the_author_meta('ID')
 									); 
@@ -70,23 +70,23 @@ get_header();
 
 									?>
 								<div class="bfg-profile-author bfg-icon-small">
-								<?
+								<?php
 								if($participantes[0] != null){
 									echo $ponenteAvatar;
 								?>
-								<span><? echo $userName . ' ' . $userLastName; ?></span>
+								<span><?php echo $userName . ' ' . $userLastName; ?></span>
 								<?php
 								}else{
 								?>
-									<img class="bfg-avatar-reset" src="<? echo wp_get_attachment_url(805); ?>" alt="">
-									<span><? echo 'BeForGet';?></span>
+									<img class="bfg-avatar-reset" src="<?php echo wp_get_attachment_url(805); ?>" alt="">
+									<span><?php echo 'BeForGet';?></span>
 								<?php
 								}
 								?>
 								</div>
 							</hgroup>
 						</div>
-						<span class="line-divisor <? echo $term->name ; ?>"></span>
+						<span class="line-divisor <?php echo $term->name ; ?>"></span>
 						<div class="bfg-content-inprofile">
 							<p>
 								<?php
@@ -98,7 +98,7 @@ get_header();
 						<div class="flex bfg-date-sesion">
 							<div class="bfg-date-wrapper">
 								<div class="bfg-icon-date inprofile">
-									<img src="<? echo wp_get_attachment_url(247); ?>" alt="">
+									<img src="<?php echo wp_get_attachment_url(920); ?>" alt="">
 								</div>
 								<div class="bfg-block time-footer">
 										<?php
@@ -108,7 +108,7 @@ get_header();
 								</div>
 							</div>
 							<div class="bfg-miembros-proyecto flex bfg-flex-grap">
-								<?
+								<?php
 									$index = 0;
 									if($participantes){
 

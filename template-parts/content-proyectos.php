@@ -128,20 +128,7 @@
 								$isVideo = $hasVideo ? 'bfg-mt-5' : '';
 							?>
 						<?php if($terms): ?>
-							<div class="bfg-ods <?php echo $isVideo; ?>">
-								<div class="bfg-ods-proyecto sesion-details">
-									<h2 class="title-bit">Objetivo de Desarrollo Sostenible</h2>
-									<ul class="bfg-list bfg-list-no-padding flex">
-								
-									<?php foreach($terms as $term): ?>
-											<li class="<?php echo $term->slug; ?>">
-												<img src="<?php echo get_stylesheet_directory_uri() . '/assets/images/' . $term->slug . '.png';  ?>" alt="">
-											</li>
-										<?php endforeach; ?>
-									
-								</ul>
-								</div>
-							</div>
+							
 							<?php endif;?>
 						</div>
 						<div>

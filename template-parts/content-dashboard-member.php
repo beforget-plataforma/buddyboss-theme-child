@@ -21,11 +21,11 @@
                <div class="bfg-item-dash">
                 <div class="bfg-member-avatar">
                   <a href="<?php echo bp_core_get_user_domain($value->id); ?>">
-                    <? echo $value->avatar;?>
+                    <?php echo $value->avatar;?>
                   </a>
                 </div>
               </div>
-             <?
+             <?php
            }
          ?>
    </div>

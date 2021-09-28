@@ -18,7 +18,7 @@
 	?>
 	<div id="buddypress" class="bfg-hero-project buddypress-wrap">
 		<div id="item-header" class="groups-header single-headers">
-			<div class="bfg-header-cover-sesiones" style="background-color:<?php the_field('brand_color'); ?>">
+			<div class="bfg-header-cover-sesiones" style="background-color:#1263f0">
 					<span class="bfg-icon-smile">
 							<img src="<?php echo wp_get_attachment_url(171); ?>" alt="">
 					</span>
@@ -71,7 +71,7 @@
 					<div class="flex bfg-date-sesion">
 						<div class="bfg-date-wrapper">
 							<div class="bfg-icon-date">
-								<img src="<?php echo wp_get_attachment_url(247); ?>" alt="">
+								<img src="<?php echo wp_get_attachment_url(920); ?>" alt="">
 							</div>
 							<div class="bfg-block bfg-date">
 								<div class="bp-wrap">
@@ -110,7 +110,7 @@
 							</div>
 					</div>
 					<span class="line"></span>
-							<?php if(current_user_can('mepr-active','rules:273') || (false !== array_search('beforget-talent', $slugTerms))): ?>
+							<?php if(current_user_can('mepr-active','rules:1063')): ?>
 								<div class="embed-container">
 										<?php
 										$iframe = get_field('video');
@@ -138,7 +138,7 @@
 							<?php endif; ?>
 								<div class="bfg-restricted">
 									<article>
-										<p>Para ver el contenido  <a href="<?php echo esc_url( wp_login_url( ) ); ?>">accede a tu perfil</a> o <a href="<? echo site_url('/hazte-miembro/' . get_permalink()); ?>">regístrate en la Comunidad.</a> </p>
+										<p>Para ver el contenido  <a href="<?php echo esc_url( wp_login_url( ) ); ?>">accede a tu perfil</a> o <a href="<?php echo site_url('/hazte-miembro/'); ?>">regístrate en la Comunidad.</a> </p>
 									<?php
 										return;
 									?>

@@ -41,8 +41,7 @@ get_header();
 				?>
 				<div class="bfg-item-sesiones">
 					<a class="no-color" href="<?php the_permalink(); ?>">
-						<div class="bfg-header-cover-sesiones item-profile flex"
-							style="background-color:<?php the_field('brand_color'); ?>">
+						<div class="bfg-header-cover-sesiones item-profile flex <?php echo $term->slug ?>">
 							<span class="bfg-icon-smile inprofile">
 								<img src="<?php echo wp_get_attachment_url(171); ?>" alt="">
 							</span>
@@ -98,7 +97,7 @@ get_header();
 						<div class="flex bfg-date-sesion">
 							<div class="bfg-date-wrapper">
 								<div class="bfg-icon-date inprofile">
-									<img src="<?php echo wp_get_attachment_url(247); ?>" alt="">
+									<img src="<?php echo wp_get_attachment_url(920); ?>" alt="">
 								</div>
 								<div class="bfg-block time-footer">
 										<?php
